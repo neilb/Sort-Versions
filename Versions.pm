@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Versions.pm,v 1.6 2002/03/09 18:19:14 epa98 Exp $
+# $Id: Versions.pm,v 1.9 2003/08/24 22:58:14 ed Exp $
 
 # Copyright (c) 1996, Kenneth J. Albanowski. All rights reserved.  This
 # program is free software; you can redistribute it and/or modify it under
@@ -8,7 +8,7 @@
 
 package Sort::Versions;
 use vars '$VERSION';
-$VERSION = '1.4';
+$VERSION = '1.5';
 
 require Exporter;
 @ISA=qw(Exporter);
@@ -136,11 +136,10 @@ perl 5.005 and earlier, but its use is deprecated.
 
 =head1 AUTHOR
 
-Ed Avis, Matt Johnson    {epa98,mwj99}@doc.ic.ac.uk (this release)
-
-Kenneth J. Albanowski	 kjahds@kjahds.com          (original author)
-
-Thanks to Hack Kampbjørn and Slaven Rezic for patches and bug reports.
+Ed Avis <ed@membled.com> and Matt Johnson <mwj99@doc.ic.ac.uk> for
+recent releases; the original author is Kenneth J. Albanowski
+<kjahds@kjahds.com>.  Thanks to Hack Kampbjørn and Slaven Rezic for
+patches and bug reports.
 
 Copyright (c) 1996, Kenneth J. Albanowski. All rights reserved.  This
 program is free software; you can redistribute it and/or modify it under the
@@ -149,50 +148,4 @@ same terms as Perl itself.
 =cut
 
 1;
-__END__
 
-#
-# $Log: Versions.pm,v $
-# Revision 1.6  2002/03/09 18:19:14  epa98
-# Made versions() deprecated, so versioncmp() is the routine to call.
-# Small code tidying.
-#
-# Revision 1.5  2002/03/09 17:26:19  epa98
-# Applied patch from Slaven Rezic to let versions() work when called
-# from a package other than main.  But this is not the final answer,
-# I intend to deprecate versions() and move the code into versioncmp(),
-# which has saner argument passing (not the magic $a and $b).
-#
-# Revision 1.4  2002/01/28 19:06:34  epa98
-# Version 1.3: patch from Hack Kampbjørn for '-' digit groupings as well
-# as '.'.
-#
-# Revision 1.3  2001/07/28 16:52:22  epa98
-# Added $VERSION.
-#
-# Revision 1.2  2001/07/28 16:33:50  epa98
-# Added support for numeric comparisons where one version number has a
-# leading zero.
-#
-# Revision 1.3  1996/07/11 13:37:00  kjahds
-# Added information on how to use versioncmp for indirect sort, and
-# exported it by default. Version bumped to 1.1.
-#
-# Revision 1.2  1996/06/24 09:20:44  kjahds
-# *** empty log message ***
-#
-# Revision 1.1.1.1  1996/06/24 09:06:18  kjahds
-#
-# Revision 1.4  1996/06/23 16:02:13  kjahds
-# *** empty log message ***
-#
-# Revision 1.3  1996/06/23 15:59:50  kjahds
-# *** empty log message ***
-#
-# Revision 1.2  1996/06/23 06:26:07  kjahds
-# *** empty log message ***
-#
-# Revision 1.1.1.1  1996/06/23 06:07:48  kjahds
-# import
-#
-#

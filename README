@@ -2,11 +2,6 @@
  Sort::Versions - a perl 5 module for sorting of revision (and similar)
  numbers
 
-   All files in this package are Copyright (c) 1996, Kenneth J. Albanowski. 
-   All rights reserved.  This program is free software; you can redistribute
-   it and/or modify it under the same terms as Perl itself.
- 
-	
 This module allows easy sorting (via comparisons) of mixed text and numeric
 strings, similar to the complex "version numbers" that many revision control
 packages and shared library systems use. For an explanation of the
@@ -29,7 +24,7 @@ algorithm, it's easiest to look at these examples:
   1-1 < 1-2
   1-2 < 1.2
 
-To install, make sure you have perl 5.002 or higher, unpack, and say: 
+To install, unpack the tarball and say:
 
   perl Makefile.PL
   make
@@ -41,3 +36,16 @@ If the tests are successful, say as root:
   
 And that's it. Further documentation is available in the Versions.pm file,
 which may be accessed via 'perldoc Sort::Versions' after installation.
+
+* Changes in this release
+
+This is version 1.5; there are no functional changes since the last
+version but some tidying and extra tests.
+
+* Author and copying
+
+The files in this package are copyright Kenneth J. Albanowski, Ed
+Avis, and Matt Johnson.  This package is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+ 
+	

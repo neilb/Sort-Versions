@@ -1,44 +1,122 @@
-2002-03-09  Edward Avis,  <epa98@voxel12>
+2003-08-24 23:58  ed
 
-	* Versions.pm:
-	Made versions() deprecated, so versioncmp() is the routine to call.
-	Small code tidying.
+	* README, Versions.pm: Version 1.5.
 
-	* Versions.pm:
-	Applied patch from Slaven Rezic to let versions() work when called
-	from a package other than main.  But this is not the final answer,
-	I intend to deprecate versions() and move the code into versioncmp(),
-	which has saner argument passing (not the magic $a and $b).
+2003-08-24 23:57  ed
 
-2002-01-28  Edward Avis,  <epa98@voxel12>
+	* mkdist: Changed to 'mkdist' written in Perl; now checks version
+	numbers.
 
-	* Versions.pm:
-	Version 1.3: patch from Hack Kampbjørn for '-' digit groupings as well
-	as '.'.
+2003-08-24 23:43  ed
+
+	* Makefile.PL: Removed DISTNAME - change to Perl standard
+	convention of calling the package Sort-Versions-xxx.tar.gz.  Though
+	I don't know quite what DISTNAME did.
+
+2003-08-24 23:41  ed
+
+	* Makefile.PL: Get the version number from Versions.pm rather than
+	hardcoding it in Makefile.PL.
+
+2003-08-24 23:37  ed
+
+	* Versions.pm: Removed CVS log; I'm not that keen on it, especially
+	as most of the log messages were empty.
+
+2003-08-24 23:33  ed
+
+	* t/versions.t: Use Test::More (based on patch from mwj99).
+
+2003-08-24 23:25  ed
+
+	* t/versions.t: Added some more test cases and commented the
+	existing tests.  I think this partly follows a patch from mwj99.
+
+2002-09-01 19:20  ed
+
+	* README: Some revisions and modernizing prompted by Matt's new
+	version (although I didn't incorporate all his changes).
+
+2002-09-01 15:03  ed
+
+	* Versions.pm: Updated my email address.
+
+2002-03-09 18:19  ed
+
+	* t/versions.t: Added some tests for calling versioncmp directly,
+	if perl >= 5.6.
+
+2002-03-09 18:19  ed
+
+	* Versions.pm: Made versions() deprecated, so versioncmp() is the
+	routine to call.  Small code tidying.
+
+2002-03-09 17:38  ed
+
+	* t/versions.t: Run each test in package main and package Foo.
+
+2002-03-09 17:26  ed
+
+	* Versions.pm, t/versions.t: Applied patch from Slaven Rezic to let
+	versions() work when called from a package other than main.  But
+	this is not the final answer, I intend to deprecate versions() and
+	move the code into versioncmp(), which has saner argument passing
+	(not the magic $a and $b).
+
+2002-01-28 19:06  ed
+
+	* Versions.pm: Version 1.3: patch from Hack Kampbjørn for '-' digit
+	groupings as well as '.'.
+
+2002-01-28 19:05  ed
 
 	* README: Added some rather lame examples of -.
 
-2001-07-28  Edward Avis,  <epa98@voxel12>
+2002-01-28 19:03  ed
 
-	* README:
-	Whoops - got the leading-zero examples the wrong way round in the
-	README.
+	* t/versions.t: Added some tests for - digit grouping.
+
+2001-07-28 18:07  ed
+
+	* t/versions.t: Whoops - got the leading-zero tests the wrong way
+	round.
+
+2001-07-28 18:07  ed
+
+	* README: Whoops - got the leading-zero examples the wrong way
+	round in the README.
+
+2001-07-28 18:02  ed
 
 	* mkdist: Modified from Lingua::Preferred to Sort::Versions.
 
+2001-07-28 17:52  ed
+
 	* Versions.pm: Added $VERSION.
 
-	* mkdist: New file.
+2001-07-28 17:40  ed
 
-	* Versions.pm:
-	Added support for numeric comparisons where one version number has a
-	leading zero.
+	* mkdist: Initial revision
+
+2001-07-28 17:34  ed
+
+	* t/versions.t: Added tests for leading-zero numeric comparisons.
+
+2001-07-28 17:33  ed
+
+	* Versions.pm: Added support for numeric comparisons where one
+	version number has a leading zero.
+
+2001-07-28 17:32  ed
 
 	* README: Fixed spelling mistake.
 
+2001-07-28 17:32  ed
+
 	* Makefile.PL: Version 1.2.
 
-2001-07-27  Edward Avis,  <epa98@voxel12>
+2001-07-27 23:27  ed
 
-	* Versions.pm, README, Makefile.PL, MANIFEST: New file.
+	* MANIFEST, Makefile.PL, README, Versions.pm, t/versions.t: Initial
+	revision
 
