@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Versions.pm,v 1.3 2001/07/28 16:52:22 epa98 Exp $
+# $Id: Versions.pm,v 1.4 2002/01/28 19:06:34 epa98 Exp $
 
 # Copyright (c) 1996, Kenneth J. Albanowski. All rights reserved.  This
 # program is free software; you can redistribute it and/or modify it under
@@ -8,7 +8,7 @@
 
 package Sort::Versions;
 use vars '$VERSION';
-$VERSION = '1.2';
+$VERSION = '1.3';
 
 require Exporter;
 @ISA=qw(Exporter);
@@ -17,31 +17,37 @@ require Exporter;
 @EXPORT_OK=qw();
 
 sub versions {
-	my(@A) = ($::a =~ /(\.|\d+|[^\.\d]+)/g);
-	my(@B) = ($::b =~ /(\.|\d+|[^\.\d]+)/g);
-	my($A,$B);
-	while(@A and @B) {
-		$A=shift @A;
-		$B=shift @B;
-		if($A eq "." and $B eq ".") {
-			next;
-		} elsif( $A eq "." ) {
-			return -1;
-		} elsif( $B eq "." ) {
-			return 1;
-		} elsif($A =~ /^\d+$/ and $B =~ /^\d+$/) {
-                        if ($A =~ /^0/ || $B =~ /^0/) {
-                                return $A cmp $B if $A cmp $B;
-                        } else {
-                                return $A <=> $B if $A <=> $B;
-                        }                                                                                           
-		} else {
-			$A = uc $A;
-			$B = uc $B;
-			return $A cmp $B if $A cmp $B;
-		}	
-	}
-	@A <=> @B;
+    my(@A) = ($::a =~ /([-.]|\d+|[^-.\d]+)/g);
+    my(@B) = ($::b =~ /([-.]|\d+|[^-.\d]+)/g);
+    my($A,$B);
+    while (@A and @B) {
+	$A=shift @A;
+	$B=shift @B;
+	if ($A eq "-" and $B eq "-") {
+	    next;
+	} elsif ( $A eq "-" ) {
+	    return -1;
+	} elsif ( $B eq "-") {
+	    return 1;
+	} elsif ($A eq "." and $B eq ".") {
+	    next;
+	} elsif ( $A eq "." ) {
+	    return -1;
+	} elsif ( $B eq "." ) {
+	    return 1;
+	} elsif ($A =~ /^\d+$/ and $B =~ /^\d+$/) {
+	    if ($A =~ /^0/ || $B =~ /^0/) {
+		return $A cmp $B if $A cmp $B;
+	    } else {
+		return $A <=> $B if $A <=> $B;
+	    }
+	} else {
+	    $A = uc $A;
+	    $B = uc $B;
+	    return $A cmp $B if $A cmp $B;
+	}	
+    }
+    @A <=> @B;
 }
 
 sub versioncmp {
@@ -88,12 +94,16 @@ For an explanation of the algorithm, itE<39>s simplest to look at these examples
   1     <  a
   a     <  b
   1     <  2
+  1.1-3 <  1.1-4
+  1.1-5 <  1.1.6
 
-More precisely (but less comprehensibly), the two strings are treated as
-subunits delimited by periods. Each subunit can contain any number of groups
-of digits or non-digits. If digit groups are being compared on both sides, a
-numeric comparison is used, otherwise a ASCII ordering is used. A group or
-subgroup with more units will win if all comparisons are equal.
+More precisely (but less comprehensibly), the two strings are treated
+as subunits delimited by periods or hyphens. Each subunit can contain
+any number of groups of digits or non-digits. If digit groups are
+being compared on both sides, a numeric comparison is used, otherwise
+a ASCII ordering is used. A group or subgroup with more units will win
+if all comparisons are equal.  A period binds digit groups together
+more tightly than a hyphen.
 
 Some packages use a different style of version numbering: a simple
 real number written as a decimal. Sort::Versions has limited support
@@ -121,7 +131,8 @@ This is handy in indirect comparisons, as shown above.
 
 Kenneth J. Albanowski		kjahds@kjahds.com  (original author)
 Ed Avis, Matt Johnson           {epa98,mwj99}@doc.ic.ac.uk (this release)
-       
+Hack Kampbjørn                  hack.kampbjorn@vigilante.com (hyphen patch)
+
 Copyright (c) 1996, Kenneth J. Albanowski. All rights reserved.  This
 program is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.
@@ -133,6 +144,10 @@ __END__
 
 #
 # $Log: Versions.pm,v $
+# Revision 1.4  2002/01/28 19:06:34  epa98
+# Version 1.3: patch from Hack Kampbjørn for '-' digit groupings as well
+# as '.'.
+#
 # Revision 1.3  2001/07/28 16:52:22  epa98
 # Added $VERSION.
 #

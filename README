@@ -25,6 +25,10 @@ algorithm, it's easiest to look at these examples:
   0002  <  1
   1.06  <  1.5
 
+  (a hyphen binds looser than a period)
+  1-1 < 1-2
+  1-2 < 1.2
+
 To install, make sure you have perl 5.002 or higher, unpack, and say: 
 
   perl Makefile.PL
