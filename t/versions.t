@@ -1,9 +1,10 @@
 #!/usr/bin/perl
+#$Id: versions.t,v 1.7 2002/03/09 18:19:43 epa98 Exp $
 
-#$Id: versions.t,v 1.4 2002/01/28 19:03:24 epa98 Exp $
-
+use strict;
 use Sort::Versions;
 
+my @tests;
 while(<DATA>) {
 	if(/^\s*(\S+)\s*([<>])\s*(\S+)\s*$/) {
 		push @tests, $1,$3 if $2 eq "<";
@@ -11,29 +12,72 @@ while(<DATA>) {
 	}
 }
 
-print "1..",@tests/2+1,"\n";
+print "1..", (@tests * 2) + 3, "\n";
 
-@l = sort versions qw (1.2 1.2a);
+my @l = sort versions qw(1.2 1.2a);
 print "not " if $l[0] ne "1.2";
 print "ok 1\n";
 
-$i=2;
-while(@tests) {
-	$a = shift @tests;
-	$b = shift @tests;
-	print "#$i:\t$a\t<\t$b\n";
-	if(versions != -1) {
-		print "not ";
+@l = sort { versioncmp($a, $b) } qw(1.2 1.2a);
+print "not " if $l[0] ne "1.2";
+print "ok 2\n";
+
+if ($] >= 5.006) {
+    @l = sort versioncmp qw(1.2 1.2a);
+    print "not " if $l[0] ne "1.2";
+    print "ok 3\n";
+}
+else {
+    # Sort subroutines have to use $a and $b, skip test.
+    print "ok 3\n";
+}
+
+my $i=4;
+while (@tests) {
+    ($a, $b) = @tests[0, 1];
+    print "#$i:\t$a\t<\t$b\n";
+
+    # Test both the versioncmp() and versions() interfaces, in both
+    # the main package and other packages.
+    #
+    if (versions != -1) {
+	print 'not ';
+    }
+    print "ok $i\n";
+    $i++;
+
+    if (versioncmp($a, $b) != -1) {
+	print 'not ';
+    }
+    print "ok $i\n";
+    $i++;
+	
+    undef $a; undef $b; # just in case
+    {
+	package Foo;
+	use Sort::Versions;
+	($a, $b) = @tests[0, 1];
+
+	if (versions != -1) {
+	    print 'not ';
 	}
 	print "ok $i\n";
 	$i++;
+
+	if (versioncmp($a, $b) != -1) {
+	    print 'not ';
+	}
+	print "ok $i\n";
+	$i++;
+    }
+
+    shift @tests; shift @tests;
 }
 
 
 __END__
 
 1.2 < 1.2.b
-
 1.2   < 1.3
 1.2   < 1.2.1
 1.2.1 < 1.3

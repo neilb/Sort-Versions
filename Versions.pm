@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# $Id: Versions.pm,v 1.4 2002/01/28 19:06:34 epa98 Exp $
+# $Id: Versions.pm,v 1.6 2002/03/09 18:19:14 epa98 Exp $
 
 # Copyright (c) 1996, Kenneth J. Albanowski. All rights reserved.  This
 # program is free software; you can redistribute it and/or modify it under
@@ -8,7 +8,7 @@
 
 package Sort::Versions;
 use vars '$VERSION';
-$VERSION = '1.3';
+$VERSION = '1.4';
 
 require Exporter;
 @ISA=qw(Exporter);
@@ -16,24 +16,25 @@ require Exporter;
 @EXPORT=qw(&versions &versioncmp);
 @EXPORT_OK=qw();
 
-sub versions {
-    my(@A) = ($::a =~ /([-.]|\d+|[^-.\d]+)/g);
-    my(@B) = ($::b =~ /([-.]|\d+|[^-.\d]+)/g);
-    my($A,$B);
+sub versioncmp( $$ ) {
+    my @A = ($_[0] =~ /([-.]|\d+|[^-.\d]+)/g);
+    my @B = ($_[1] =~ /([-.]|\d+|[^-.\d]+)/g);
+
+    my ($A, $B);
     while (@A and @B) {
-	$A=shift @A;
-	$B=shift @B;
-	if ($A eq "-" and $B eq "-") {
+	$A = shift @A;
+	$B = shift @B;
+	if ($A eq '-' and $B eq '-') {
 	    next;
-	} elsif ( $A eq "-" ) {
+	} elsif ( $A eq '-' ) {
 	    return -1;
-	} elsif ( $B eq "-") {
+	} elsif ( $B eq '-') {
 	    return 1;
-	} elsif ($A eq "." and $B eq ".") {
+	} elsif ($A eq '.' and $B eq '.') {
 	    next;
-	} elsif ( $A eq "." ) {
+	} elsif ( $A eq '.' ) {
 	    return -1;
-	} elsif ( $B eq "." ) {
+	} elsif ( $B eq '.' ) {
 	    return 1;
 	} elsif ($A =~ /^\d+$/ and $B =~ /^\d+$/) {
 	    if ($A =~ /^0/ || $B =~ /^0/) {
@@ -50,9 +51,12 @@ sub versions {
     @A <=> @B;
 }
 
-sub versioncmp {
-	local($::a,$::b)=@_;
-	versions;
+sub versions() {
+    my $callerpkg = (caller)[0];
+    my $caller_a = "${callerpkg}::a";
+    my $caller_b = "${callerpkg}::b";
+    no strict 'refs';
+    return versioncmp($$caller_a, $$caller_b);
 }
 
 =head1 NAME
@@ -62,23 +66,23 @@ Sort::Versions - a perl 5 module for sorting of revision-like numbers
 =head1 SYNOPSIS
 
 	use Sort::Versions;
-	@l = sort versions qw( 1.2 1.2.0 1.2a.0 1.2.a 1.a 02.a );
+	@l = sort { versioncmp($a, $b) } qw( 1.2 1.2.0 1.2a.0 1.2.a 1.a 02.a );
 
 	...
 
 	use Sort::Versions;
-	print "lower" if versioncmp("1.2","1.2a")==-1;
+	print 'lower' if versioncmp('1.2', '1.2a') == -1;
 	
 	...
 	
 	use Sort::Versions;
-	%h = (1 => "d", 2 => "c", 3 => "b", 4 => "a");
-	@h = sort {versioncmp $h{$a}, $h{$b}} keys %h;
+	%h = (1 => 'd', 2 => 'c', 3 => 'b', 4 => 'a');
+	@h = sort { versioncmp($h{$a}, $h{$b}) } keys %h;
 
 =head1 DESCRIPTION	
 
 Sort::Versions allows easy sorting of mixed non-numeric and numeric strings,
-like the "version numbers" that many shared library systems and revision
+like the 'version numbers' that many shared library systems and revision
 control packages use. This is quite useful if you are trying to deal with
 shared libraries. It can also be applied to applications that intersperse
 variable-width numeric fields within text. Other applications can
@@ -122,16 +126,21 @@ style with (possibly) more than one dot is the style to use.
 
 =head1 USAGE
 
-Sort::Versions exports C<versions> and C<versioncmp>. The former is a
-function suitable for handing directly to C<sort>. The second function,
-C<versioncmp>, takes two arguments and returns a cmp style comparison value.
-This is handy in indirect comparisons, as shown above.
+The function C<versioncmp()> takes two arguments and compares them like C<cmp>.
+With perl 5.6 or later, you can also use this function directly in sorting:
+
+    @l = sort versioncmp qw(1.1 1.2 1.0.3);
+
+The function C<versions()> can be used directly as a sort function even on
+perl 5.005 and earlier, but its use is deprecated.
 
 =head1 AUTHOR
 
-Kenneth J. Albanowski		kjahds@kjahds.com  (original author)
-Ed Avis, Matt Johnson           {epa98,mwj99}@doc.ic.ac.uk (this release)
-Hack Kampbjørn                  hack.kampbjorn@vigilante.com (hyphen patch)
+Ed Avis, Matt Johnson    {epa98,mwj99}@doc.ic.ac.uk (this release)
+
+Kenneth J. Albanowski	 kjahds@kjahds.com          (original author)
+
+Thanks to Hack Kampbjørn and Slaven Rezic for patches and bug reports.
 
 Copyright (c) 1996, Kenneth J. Albanowski. All rights reserved.  This
 program is free software; you can redistribute it and/or modify it under the
@@ -144,6 +153,16 @@ __END__
 
 #
 # $Log: Versions.pm,v $
+# Revision 1.6  2002/03/09 18:19:14  epa98
+# Made versions() deprecated, so versioncmp() is the routine to call.
+# Small code tidying.
+#
+# Revision 1.5  2002/03/09 17:26:19  epa98
+# Applied patch from Slaven Rezic to let versions() work when called
+# from a package other than main.  But this is not the final answer,
+# I intend to deprecate versions() and move the code into versioncmp(),
+# which has saner argument passing (not the magic $a and $b).
+#
 # Revision 1.4  2002/01/28 19:06:34  epa98
 # Version 1.3: patch from Hack Kampbjørn for '-' digit groupings as well
 # as '.'.
