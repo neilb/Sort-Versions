@@ -1,0 +1,24 @@
+2001-07-28  Edward Avis,  <epa98@project30>
+
+	* README:
+	Whoops - got the leading-zero examples the wrong way round in the
+	README.
+
+	* mkdist: Modified from Lingua::Preferred to Sort::Versions.
+
+	* Versions.pm: Added $VERSION.
+
+	* mkdist: New file.
+
+	* Versions.pm:
+	Added support for numeric comparisons where one version number has a
+	leading zero.
+
+	* README: Fixed spelling mistake.
+
+	* Makefile.PL: Version 1.2.
+
+2001-07-27  Edward Avis,  <epa98@project30>
+
+	* Versions.pm, README, Makefile.PL, MANIFEST: New file.
+
