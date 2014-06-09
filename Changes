@@ -5,6 +5,7 @@ Revision history for Perl module Sort::Versions
     - Switched to Dist::Zilla, moving Versions.pm into lib/Sort/ in the process
     - Specified utf-8 encoding for pod, and put Hack's surname in UTF-8.
       RT#89433
+    - Added separate COPYRIGHT AND LICENSE section in pod, in expected format.
     - Reformatted this file as per CPAN::Changes::Spec
 
 1.5 2003-08-25 EDAVIS
