@@ -1,8 +1,9 @@
 Revision history for Perl module Sort::Versions
 
-1.60 2014-06-?? NEILB
+1.5_01 2014-06-11 NEILB
 
     - Switched to Dist::Zilla, moving Versions.pm into lib/Sort/ in the process
+      This will address RT#83016 as a side effect.
     - Specified utf-8 encoding for pod, and put Hack's surname in UTF-8.
       RT#89433
     - Added separate COPYRIGHT AND LICENSE section in pod, in expected format.
