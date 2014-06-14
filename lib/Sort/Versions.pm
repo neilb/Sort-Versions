@@ -133,6 +133,11 @@ With perl 5.6 or later, you can also use this function directly in sorting:
 The function C<versions()> can be used directly as a sort function even on
 perl 5.005 and earlier, but its use is deprecated.
 
+=head1 SEE ALSO
+
+L<version>, L<CPAN::Version> which is part of the L<CPAN> distribution.
+
+
 =head1 REPOSITORY
 
 L<https://github.com/neilbowers/Sort-Versions>
