@@ -1,5 +1,9 @@
 Revision history for Perl module Sort::Versions
 
+1.61 2015-04-29 NEILB
+    - Removed spaces from function prototype for versioncmp(). RT#103810
+      Kerin Millar++
+
 1.60 2014-06-13 NEILB
     - CPAN Testers hasn't reported any failures, so my first
       non-developer release.
