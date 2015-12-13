@@ -1,5 +1,10 @@
 Revision history for Perl module Sort::Versions
 
+1.62 2015-12-13 NEILB
+    - Fixed Hack Kampbjørn's surname -- I'd previously switched the ø to an
+      upper-case Ø -- thanks to pink-mist for pointing this out.
+    - Updated github repo URL after changing my github username
+
 1.61 2015-04-29 NEILB
     - Removed spaces from function prototype for versioncmp(). RT#103810
       Kerin Millar++
@@ -65,7 +70,7 @@ Revision history for Perl module Sort::Versions
 
 1.3 2002-01-29 EDAVIS
 
-    - Versions.pm: Version 1.3: patch from Hack Kampbj�rn for '-' digit
+    - Versions.pm: Version 1.3: patch from Hack Kampbjørn for '-' digit
       groupings as well as '.'.
 
     - README: Added some rather lame examples of -.
